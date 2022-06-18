@@ -1,0 +1,12 @@
+#!/bin/bash
+TS=$(date "+%Y-%m-%d %H:%M:%S")
+ID=$1
+NAME=$(grep $1 name.list | cut -d' ' -f2)
+
+if [[ "" == "$NAME" ]]
+then
+	NAME="unkown"
+fi
+
+
+echo "[$TS] hello $NAME"
