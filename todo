@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+declare  -r TASKS_FILE="$HOME/.todo/tasks"
+
+if [[ $# -eq 0 ]]; then
+  echo "usage :todo <init|list|add|edit|remove|reset|mark|unmark>[args]"
+  exit 1
+  fi
+
+if [[ $1 == 'init' ]]; then
+  mkdir -p "$HOME/.todo"
+  touch "$TASKS_FILE"
+  echo "Initialized successfully."
+  fi
+
+if [[ ! -f "$TASKS_FILE" ]]; then
+  echo "Please run 'todo init' before running '<$1>' command."
+  fi
+
+if [[ $1 == 'list' ]]; then
+  echo "# To be done"
+  grep '^[0-9]' "$TASKS_FILE" || echo "empty"
+  echo "# Completed"
+  echo "empty"
+  fi
+
+if [[ $1 == 'add' ]]; then
+  shift
+  declare -r TASKS_TITLE="$*"
+  declare LAST_TASKS_ID
+  LAST_TASK_ID=$(tail -n1 "$TASKS_FILE" | cut -d'' -f1)
+  declare -r LAST_TASKS_ID
+
+  declare -r TASKS_ID=$((LAST_TASKS_ID))
+  echo "$TASKS_ID $TASKS_TITLE" >> "$TASKS_FILE"
+  fi
+
